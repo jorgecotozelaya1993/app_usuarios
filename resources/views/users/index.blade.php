@@ -1,17 +1,69 @@
 @extends('layout')
 @section('title', "Informe de Usuarios")
 @section('content')
-    <h1>  {{ $title }} </h1>
+   
  
-    <hr>
+    <div class="d-flex justify-content-between">
+        <h1>  {{ $title }} </h1>
+    <p>
+        <a href="{{ url('/usuarios/nuevo') }}" class="btn btn-primary" >Nuevo Usuario </a>
+    </p>
+    </div>
 
-    @if(!empty($users))
-            <ul>
-                @foreach ($users as $user)
-                <li>{{ $user }}</li>
-            @endforeach
-            </ul>
-    @else
-            <p>No hay usuarios registrados</p>
-    @endif
+
+    @if ($users->isNotEmpty())
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+           
+            @foreach ($users as $user)
+            <tr>
+                <th> {{ $user->id }} </th>
+                <td>  {{ $user->name }}</td>
+                <td> {{ $user->email}} </td>
+             
+            <td>
+            
+                <form action="{{ url('usuarios', $user) }}" method="POST">
+                    {{ csrf_field() }}
+                     {{ method_field('DELETE') }}
+
+            <a href="{{ url("/usuarios/{$user->id}") }}" class="btn btn-link">
+                <span class="oi oi-eye"></span>
+            </a>
+
+            <a href="{{ url("/usuarios/{$user->id}/editar") }}" class="btn btn-link">
+                <span class="oi oi-pencil"></span>
+            </a>                    
+
+            
+            <button type="submit" class="btn btn-link">
+                <span class="oi oi-trash"></span>
+            </button>
+            </form>
+            </td>
+
+        </tr>
+        @endforeach
+        </tbody>
+      </table>
+
+      Pagina {{ $users->currentPage() }}
+      <div class="d-flex justify-content-end"
+      {{ $users->links() }}
+      </div>
+
+      Ultima Pagina {{ $users->lastPage()  }}
+     @else
+     <div class="alert alert-danger" role="alert"> No hay usuarios Registrados
+      </div>
+     @endif
+   
 @endsection

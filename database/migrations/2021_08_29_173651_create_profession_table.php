@@ -13,7 +13,7 @@ class CreateProfessionTable extends Migration
      */
     public function up()
     {
-        Schema::create('profession', function (Blueprint $table) {
+        Schema::create('professions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',50)->unique();
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateProfessionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profession');
+        Schema::dropIfExists('professions');
     }
 }
