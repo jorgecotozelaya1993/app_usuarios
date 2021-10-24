@@ -12,7 +12,7 @@
 
 
     @if ($users->isNotEmpty())
-    <table class="table">
+    <table class="table table-striped table-bordered" id="example">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -55,12 +55,16 @@
         </tbody>
       </table>
 
+  {{-- 
       Pagina {{ $users->currentPage() }}
       <div class="d-flex justify-content-end"
       {{ $users->links() }}
       </div>
 
       Ultima Pagina {{ $users->lastPage()  }}
+ --}}
+
+
      @else
      <div class="alert alert-danger" role="alert"> No hay usuarios Registrados
       </div>
